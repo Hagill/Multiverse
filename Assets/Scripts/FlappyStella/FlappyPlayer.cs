@@ -15,6 +15,7 @@ public class FlappyPlayer : MonoBehaviour
 
     public bool godMode = false;
 
+    FlappyUIManager uiManager;
     FlappyGameManager gameManager;
 
     private void Awake()
@@ -29,6 +30,8 @@ public class FlappyPlayer : MonoBehaviour
     {
         gameManager = FlappyGameManager.Instance;
 
+        uiManager = FindObjectOfType<FlappyUIManager>();
+
         animator = GetComponentInChildren<Animator>();
         
 
@@ -37,6 +40,9 @@ public class FlappyPlayer : MonoBehaviour
 
         if (_rigidbody == null)
             Debug.LogError("Not Founded Rigidbody");
+
+        if (uiManager == null)
+            Debug.LogError("Not Founded UIManager");
     }
 
     public void ResetPlayerState()
@@ -62,6 +68,11 @@ public class FlappyPlayer : MonoBehaviour
     {
         if (gameManager.GetGameState() == GameState.Playing)
         {
+            if (uiManager.IgnoreStartFlap())
+            {
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 isFlap = true;

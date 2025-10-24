@@ -44,6 +44,7 @@ public class FlappyGameManager : MonoBehaviour
         SetGameState(GameState.Ready);
     }
 
+    // 게임 상태 설정 함수
     public void SetGameState(GameState state)
     {
         if (currentGameState == state) return;
@@ -74,6 +75,7 @@ public class FlappyGameManager : MonoBehaviour
                 break;
         }
     }
+
     public void GameOver()
     {
         Debug.Log("Game Over");

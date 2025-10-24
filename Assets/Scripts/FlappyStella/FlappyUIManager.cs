@@ -17,7 +17,15 @@ public class FlappyUIManager : MonoBehaviour
     public Button retryButton;
     public Button zoneButton;
 
+    private bool ignoreStartFlap = false;
+    private float ignoreDuration = 0.1f;
+
     FlappyGameManager gameManager;
+
+    public bool IgnoreStartFlap()
+    {
+        return ignoreStartFlap;
+    }
 
     void Start()
     {
@@ -67,6 +75,16 @@ public class FlappyUIManager : MonoBehaviour
 
     private void Update()
     {
+        if (ignoreStartFlap)
+        {
+            ignoreDuration -= Time.unscaledDeltaTime;
+
+            if(ignoreDuration <= 0)
+            {
+                ignoreStartFlap = false;
+            }
+            return;
+        }
         if (gameManager.GetGameState() == GameState.Ready)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -111,6 +129,9 @@ public class FlappyUIManager : MonoBehaviour
     void OnClickStartButton()
     {
         gameManager.SetGameState(GameState.Playing);
+
+        ignoreStartFlap = true;
+        ignoreDuration = 0.1f;
     }
 
     void OnClickReStartButton()
