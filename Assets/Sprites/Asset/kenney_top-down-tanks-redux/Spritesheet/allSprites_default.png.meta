@@ -126,12 +126,12 @@ TextureImporter:
       name: Portal1
       rect:
         serializedVersion: 2
-        x: 320
-        y: 102
-        width: 60
-        height: 59
+        x: 321
+        y: 103
+        width: 58
+        height: 57
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

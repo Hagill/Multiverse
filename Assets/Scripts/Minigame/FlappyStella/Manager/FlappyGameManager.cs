@@ -18,9 +18,6 @@ public class FlappyGameManager : MonoBehaviour
 
     private int currentScore = 0;
 
-    int bestScore = 0;
-    public int BestScore { get => bestScore; }
-    private const string BestScoreKey = "BestScore";
 
     FlappyUIManager uiManager;
     public FlappyUIManager UIManager { get { return uiManager; } }
@@ -33,10 +30,10 @@ public class FlappyGameManager : MonoBehaviour
     private void Awake()
     {
         gameManager = this;
+
         uiManager = FindObjectOfType<FlappyUIManager>();
         player = FindObjectOfType<FlappyPlayer>();
 
-        LoadHighScore();
     }
 
     private void Start()
@@ -80,9 +77,11 @@ public class FlappyGameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
 
-        UpdateHighScore();
+        GameDataManager.Instance.SetHighScore(MinigameType.FlappyStella, currentScore);
 
-        uiManager.UpdateEndScore(currentScore, bestScore);
+        int currentFlappyBestScore = GameDataManager.Instance.GetHIghScore(MinigameType.FlappyStella);
+        
+        uiManager.UpdateEndScore(currentScore, currentFlappyBestScore);
 
         SetGameState(GameState.GameOver);
     }
@@ -97,19 +96,5 @@ public class FlappyGameManager : MonoBehaviour
         currentScore += score;
         Debug.Log("Score: " + currentScore);
         uiManager.UpdateScore(currentScore);
-    }
-
-    private void LoadHighScore()
-    {
-        bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
-    }
-
-    private void UpdateHighScore()
-    {
-        if (bestScore < currentScore)
-        {
-            bestScore = currentScore;
-            PlayerPrefs.SetInt(BestScoreKey, bestScore);
-        }
     }
 }

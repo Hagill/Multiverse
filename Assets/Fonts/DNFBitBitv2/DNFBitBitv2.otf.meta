@@ -10,7 +10,8 @@ TrueTypeFontImporter:
   includeFontData: 1
   fontNames:
   - DNF Bit Bit v2
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4b497be4abae6b547b59a0eac884680a, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

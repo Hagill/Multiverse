@@ -10,10 +10,9 @@ public class FlappyUIManager : MonoBehaviour
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI titleText;
+    public TextMeshProUGUI tapToStartText;
 
     public GameObject popUp;
-
-    public Button startButton;
     public Button retryButton;
     public Button zoneButton;
 
@@ -58,10 +57,8 @@ public class FlappyUIManager : MonoBehaviour
         if (gameManager == null) 
             Debug.LogError("FlappyGameManager.Instance is null");
 
-        if (startButton != null)
-        {
-            startButton.onClick.AddListener(OnClickStartButton);
-        }
+        if (tapToStartText == null)
+            Debug.LogError("tapToStartText is null");
 
         if (retryButton != null)
         {
@@ -97,7 +94,7 @@ public class FlappyUIManager : MonoBehaviour
     public void ShowReadyUI()
     {
         titleText.gameObject.SetActive(true);
-        startButton.gameObject.SetActive(true);
+        tapToStartText.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
         popUp.gameObject.SetActive(false);
     }
@@ -105,7 +102,7 @@ public class FlappyUIManager : MonoBehaviour
     public void ShowScoreUI()
     {
         titleText.gameObject.SetActive(false);
-        startButton.gameObject.SetActive(false);
+        tapToStartText.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(true);
     }
 
