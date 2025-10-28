@@ -8,6 +8,8 @@ public class Player : BaseMovement
 
     private Portal portal = null;
 
+    public bool CanMove { get; set; } = true;
+
     protected override void Start()
     {
         base.Start();
@@ -29,16 +31,23 @@ public class Player : BaseMovement
 
     protected override void HandleAction()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        movementDirection = new Vector2(horizontal, vertical).normalized;
-
-        if (movementDirection.magnitude > 0.1f)
+        if (CanMove)
         {
-            lastMovementDirection = movementDirection.normalized;
-        }
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            movementDirection = new Vector2(horizontal, vertical).normalized;
 
-        lookDirection = lastMovementDirection;
+            if (movementDirection.magnitude > 0.1f)
+            {
+                lastMovementDirection = movementDirection.normalized;
+            }
+
+            lookDirection = lastMovementDirection;
+        }
+        else
+        {
+            movementDirection = Vector2.zero;
+        }
     }
 
     public void SetCurrentPortal(Portal portal)
