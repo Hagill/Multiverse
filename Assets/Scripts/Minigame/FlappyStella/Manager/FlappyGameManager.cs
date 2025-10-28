@@ -27,9 +27,13 @@ public class FlappyGameManager : MonoBehaviour
 
     private FlappyPlayer player;
 
+    private GameDataManager gameDataManager;
+
     private void Awake()
     {
         gameManager = this;
+
+        gameDataManager = GameDataManager.Instance;
 
         uiManager = FindObjectOfType<FlappyUIManager>();
         player = FindObjectOfType<FlappyPlayer>();
@@ -68,7 +72,6 @@ public class FlappyGameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
-                uiManager.ShowPopUpUI();
                 break;
         }
     }
@@ -77,10 +80,21 @@ public class FlappyGameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
 
-        GameDataManager.Instance.SetHighScore(MinigameType.FlappyStella, currentScore);
-
-        int currentFlappyBestScore = GameDataManager.Instance.GetHIghScore(MinigameType.FlappyStella);
+        int prevFlappyBestScore = gameDataManager.GetHIghScore(MinigameType.FlappyStella);
         
+        gameDataManager.SetHighScore(MinigameType.FlappyStella, currentScore);
+
+        int currentFlappyBestScore = gameDataManager.GetHIghScore(MinigameType.FlappyStella);
+
+        if (currentScore > prevFlappyBestScore)
+        {
+            uiManager.ShowBestScorePopUpUI();
+        }
+        else
+        {
+            uiManager.ShowPopUpUI();
+        }
+
         uiManager.UpdateEndScore(currentScore, currentFlappyBestScore);
 
         SetGameState(GameState.GameOver);

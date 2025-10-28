@@ -11,6 +11,7 @@ public class FlappyUIManager : MonoBehaviour
     public TextMeshProUGUI bestScoreText;
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI tapToStartText;
+    public TextMeshProUGUI uGotBestScore;
 
     public GameObject popUp;
     public Button retryButton;
@@ -59,6 +60,9 @@ public class FlappyUIManager : MonoBehaviour
 
         if (tapToStartText == null)
             Debug.LogError("tapToStartText is null");
+
+        if (uGotBestScore == null)
+            Debug.LogError("uGotBestScore is null");
 
         if (retryButton != null)
         {
@@ -109,6 +113,14 @@ public class FlappyUIManager : MonoBehaviour
     public void ShowPopUpUI()
     {
         scoreText.gameObject.SetActive(false);
+        uGotBestScore.gameObject.SetActive(false);
+        popUp.gameObject.SetActive(true);
+    }
+
+    public void ShowBestScorePopUpUI()
+    {
+        scoreText.gameObject.SetActive(false);
+        uGotBestScore.gameObject.SetActive(true);
         popUp.gameObject.SetActive(true);
     }
 
